@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <!-- Moralis SDK code -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+  </head>
+  <body>
+    <h1>Moralise Vanilla Javscript Template</h1>
+
+    <button onclick="login()" id="btn-login">Moralis Login</button>
+    <button onclick="transfer()">Transfer 0.5 ETH</button>
+
+    <script>
+        // connect to Moralis server
+
+    const serverUrl = "moralis server url";
+    const appId = "moralis app id";
+    Moralis.start({ serverUrl, appId });
+
+    async function login(){
+      await Moralis.Web3.authenticate().then(res => {
+        console.log(res);
+        }).catch(err => {
+          console.log(err);
+        });
+    }
+
+async function transfer(){
+  var options = {type: "erc20",
+  amount: Moralis.Units.Token("0.5", "18"),
+  receiver: "reciever wallet",
+  contractAddress: "0x6b175474e89094c44da98b954eedeac495271d0f"}
+  Moralis.transfer(options).then(res => {
+        console.log(res);
+        }).catch(err => {
+          console.log(err);
+        });
+
+    }
+
+    async function logOut() {
+      await Moralis.User.logOut();
+      console.log("logged out");
+    }
+
+
+    </script>
+  </body>
+</html>
